@@ -113,7 +113,7 @@ public class Enemies {
     }
     public boolean isKilled(Shape player) {
         for(Snail s: enemieBoxes) {
-            if (player.intersects(s.critbox)) {
+            if (player.intersects(s.critbox) && s.isAlive) {
                 s.isAlive = false;
                 return true;
             }

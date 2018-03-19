@@ -1,18 +1,25 @@
-import org.newdawn.slick.BasicGame;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.Music;
-import org.newdawn.slick.SlickException;
+import javafx.scene.control.TextInputDialog;
+import org.newdawn.slick.*;
+
+import javax.swing.*;
+import java.io.File;
+import java.util.Optional;
 
 public class Game extends BasicGame
 {
+    private enum State {
+        MAIN_MENU, PLAYING, FINISHED
+    }
+    private State gameState = State.MAIN_MENU;
     private StaticLevel level;
     private Player player;
     private Enemies enemies;
-    private Music bgMusic;
+    public Music bgMusic;
+    private Sound finishSound;
+    private boolean finishSoundPlayed = false;
     public boolean gameRunning = false;
+
+    public Thread highscoreViewThread;
 
     public Game() throws SlickException {
         super("SuperMarco");
@@ -29,52 +36,117 @@ public class Game extends BasicGame
         player = new Player( level,enemies );
         player.init(gc);
 
+        bgMusic = new Music("/media/sounds/background_music.ogg");
+        bgMusic.loop();
 
-
-//		bgMusic = new Music("C:\\Users\\marcm\\Downloads\\mario_08");
-//		bgMusic.loop();
+        finishSound = new Sound("/media/sounds/finish2.ogg");
     }
 
 
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        //drawDebugLines( g , 50 );
-        g.scale(3f,3f);
-        g.translate(-player.player.getX() + 250,-player.player.getY() + 150); //placing camera in relation to player
-        level.render(gc, g);
-        player.render(gc, g);
-        enemies.render(gc, g);
-
         if(level.isInGoal(player.player)) {
-            g.setColor(Color.red);
-            g.drawString("LEVEL GESCHAFFT!", 1650, 650);
-            g.drawString("DANKE FÜRS SPIELEN.", 1640, 600);
-            gameRunning = false;
+            gameState = State.FINISHED;
+        }
+        switch(gameState){
+             case MAIN_MENU:
+                 g.scale(3f,3f);
+                 g.translate(-player.player.getX() + 250,-player.player.getY() + 150); //placing camera in relation to player
+                 g.setColor(Color.white);
+                 g.drawString("Welcome to SuperMarco!"
+                         + "\n\nMove with arrow keys."
+                         + "\nPress R to reset."
+                         + "\nPress enter to start.", -200, 650);
+                 if( gc.getInput().isKeyDown(Input.KEY_ENTER) )
+                     gameState = State.PLAYING;
+                 break;
+            case PLAYING:
+                //drawDebugLines( g , 50 );
+                g.scale(3f,3f);
+                g.translate(-player.player.getX() + 250,-player.player.getY() + 150); //placing camera in relation to player
+                level.render(gc, g);
+                player.render(gc, g);
+                enemies.render(gc, g);
+                break;
+            case FINISHED:
+                g.scale(3f,3f);
+                g.translate(-player.player.getX() + 250,-player.player.getY() + 150); //placing camera in relation to player
+                g.setColor(Color.red);
+                g.drawString("LEVEL GESCHAFFT!" +
+                        "\nDANKE FÜRS SPIELEN.", player.player.getX(),player.player.getY() - 100);
+
+                if(!finishSoundPlayed) {
+                    saveHighscore(12);
+                    bgMusic.pause();
+                    finishSound.play();
+                    finishSoundPlayed = true;
+
+                    //if(highscoreViewThread == null || !highscoreViewThread.isAlive()) {
+                        highscoreViewThread = new Thread(() -> {
+                            javafx.application.Application.launch(HighscoreView.class);
+                        });
+                        highscoreViewThread.start();
+                    //}
+                }
+
+                if( gc.getInput().isKeyDown(Input.KEY_R) ) {
+                    gameState = State.PLAYING;
+                    player.reset();
+                    finishSoundPlayed = false;
+                    bgMusic.resume();
+                }
+
+
+                break;
+        }
+    }
+
+    private void saveHighscore(int score) {
+
+        JFrame frame = new JFrame("Highscore");
+        String name = JOptionPane.showInputDialog(frame, "Look, this is your score: " + score + ". Please enter your name:");
+
+        if(name != null && !name.isEmpty()) {
+            Highscore highscore = new Highscore();
+            File scoresFile = new File("scores.xml");
+
+            if(scoresFile.exists()) {
+                try {
+                    highscore.loadFromXMLFile(scoresFile.getAbsolutePath());
+                } catch(Exception ex) {
+                    //TODO
+                    ex.printStackTrace();
+                }
+            }
+
+            highscore.addScore(new Score(name, score));
+            try {
+                highscore.writeToXMLFile(scoresFile.getAbsolutePath());
+            } catch(Exception ex) {
+                //TODO
+                ex.printStackTrace();
+            }
         }
 
-        if(!gameRunning) {
-            g.setColor(Color.white);
-            g.drawString("Welcome to SuperMarco!"
-                    + "\n\nMove with arrow keys."
-                    + "\nPress R to reset."
-                    + "\nPress enter to start.", -200, 650);
-            if( gc.getInput().isKeyDown(Input.KEY_ENTER) )
-                gameRunning = true;
-        }
     }
 
 
     public void update(GameContainer gc, int delta) throws SlickException {
-        if(gameRunning) {
-            level.update(gc, delta);
-            player.update(gc, delta);
-            enemies.update(gc, delta);
+        switch(gameState){
+            case MAIN_MENU:
+
+                break;
+            case PLAYING:
+                level.update(gc, delta);
+                player.update(gc, delta);
+                enemies.update(gc, delta);
+                break;
+            case FINISHED:
+
+                break;
         }
+
     }
-
-
-
-
 
 
     // Draw a grid on the screen for easy positioning

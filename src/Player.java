@@ -1,10 +1,4 @@
-import org.newdawn.slick.Animation;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
@@ -21,6 +15,8 @@ public class Player {
     private StaticLevel level;
     private Enemies enemies;
     private Animation[] sprite = new Animation[6];
+
+    Sound opponentSound, jumpSound, gameOverSound;
 
 
 
@@ -70,6 +66,9 @@ public class Player {
         sprite[5] = new Animation(new Image[] {new Image("./media/Marco_Standing_Looking Left_01.png")},1);
 
 
+        opponentSound = new Sound("/media/sounds/opponent.ogg");
+        jumpSound = new Sound("/media/sounds/jump.ogg");
+        gameOverSound = new Sound("/media/sounds/game_over1.ogg");
     }
 
 
@@ -79,6 +78,7 @@ public class Player {
         g.draw(player);
         sprite[playerDir].draw(x,y,20,25);
 
+
     }
 
 
@@ -87,6 +87,10 @@ public class Player {
         vY += gravity;
         if( gc.getInput().isKeyDown(Input.KEY_UP) )
         {
+            if(!playerJump) {
+                jumpSound.play();
+            }
+
             playerJump = true;
             player.setY( player.getY()+0.5f );
             y = player.getY()+0.5f -cY;
@@ -123,13 +127,15 @@ public class Player {
             reset();
         }
 
-        //enemie hits player
+        //enemy hits player
         if(enemies.hitsPlayer(player)) {
             reset();
         }
 
-        //player hits enemie
-        enemies.isKilled(player);
+        //player hits enemy
+        if(enemies.isKilled(player)) {
+            opponentSound.play();
+        }
 
         //checked if reached goal
         if(level.isInGoal(player))
@@ -157,13 +163,13 @@ public class Player {
         {
             vX = 0;
             //choosing Animation
-            if(playerDir == JUMPING_LEFT || playerDir == WALKING_LEFT) {
+            if(playerDir == JUMPING_LEFT || playerDir == WALKING_LEFT || playerDir == LOOKING_LEFT) {
                 if (playerJump)
                     playerDir = JUMPING_LEFT;
                 else
                     playerDir = LOOKING_LEFT;
             }
-            else if (playerDir == WALKING_RIGHT || playerDir == JUMPING_RIGHT) {
+            else if (playerDir == WALKING_RIGHT || playerDir == JUMPING_RIGHT|| playerDir == LOOKING_RIGHT) {
                 if (playerJump)
                     playerDir = JUMPING_RIGHT;
                 else
@@ -186,11 +192,14 @@ public class Player {
         }
     }
 
-    private void reset() {
+    public void reset() {
+        gameOverSound.play();
+
         player.setY(700);
         player.setX(40);
         for(Snail s: enemies.enemieBoxes) {
             s.isAlive = true;
         }
+
     }
 }

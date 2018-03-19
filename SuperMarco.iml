@@ -7,11 +7,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="lwjgl" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
           <root url="jar://$USER_HOME$/Desktop/lib/lwjgl-2.9.3/lwjgl-2.9.3/jar/lwjgl.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../slick/lib/lwjgl.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -21,6 +21,7 @@
       <library>
         <CLASSES>
           <root url="jar://$USER_HOME$/Desktop/lib/lwjgl-2.9.3/lwjgl-2.9.3/jar/lwjgl_util.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../slick/lib/lwjgl_util.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -30,6 +31,7 @@
       <library>
         <CLASSES>
           <root url="jar://$USER_HOME$/Desktop/lib/slick/lib/jinput.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../slick/lib/jinput.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -39,6 +41,7 @@
       <library>
         <CLASSES>
           <root url="jar://$USER_HOME$/Desktop/lib/slick/lib/lwjgl.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../slick/lib/lwjgl.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -48,6 +51,7 @@
       <library>
         <CLASSES>
           <root url="jar://$USER_HOME$/Desktop/lib/slick/lib/lwjgl_util.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../slick/lib/lwjgl_util.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -57,6 +61,7 @@
       <library>
         <CLASSES>
           <root url="jar://$USER_HOME$/Desktop/lib/slick/lib/slick.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../slick/lib/slick.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -66,6 +71,35 @@
       <library>
         <CLASSES>
           <root url="jar://$USER_HOME$/Desktop/lib/slick/lib/ibxm.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../slick/lib/ibxm.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="lwjgl">
+        <CLASSES />
+        <JAVADOC />
+        <NATIVE>
+          <root url="file://$MODULE_DIR$/../../slick" />
+        </NATIVE>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../slick/lib/jorbis-0.0.15.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../slick/lib/jogg-0.0.7.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
