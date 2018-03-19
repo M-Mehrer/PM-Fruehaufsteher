@@ -14,6 +14,11 @@ public class StaticLevel
     private Shape ziel;
     private Image welt;
 
+    private float[] coinX;
+    private float[] coinY;
+    private Coin[] coins;
+
+
     public void init(GameContainer gc) throws SlickException {
 
         float[] alpha = new float[] {
@@ -46,8 +51,9 @@ public class StaticLevel
                 768f,703f,
                 784f,703f,
                 784f,719f,
-                800f,735f,
-                865f,735f,
+                800f,719f,
+                800f,736f,
+                865f,736f,
                 865f,800f};
 
         float[] bravo = new float[]
@@ -106,6 +112,7 @@ public class StaticLevel
         lev[7] = new Rectangle(576,704,32,32);
         lev[8] = new Rectangle(287,592,290,16);
         lev[9] = new Polygon(bravo);
+
         lev[10] = new Rectangle(160,529,32,16);
         lev[11] = new Rectangle(96,504,32,16);
         lev[12] = new Rectangle(63,472,32,16);
@@ -113,6 +120,7 @@ public class StaticLevel
         lev[14] = new Rectangle(544,400,32,16);
         lev[15] = new Rectangle(544,336,32,16);
         lev[16] = new Rectangle(511,304,32,16);
+
         lev[17] = new Rectangle(127,440,130,16);
         lev[18] = new Rectangle(352,464,225,16);
         lev[19] = new Rectangle(928,736,32,64);
@@ -125,6 +133,35 @@ public class StaticLevel
         ziel = new Rectangle(1650,568,16,150);
         welt = new Image("./media/Level_One_V.1.2.png");
 
+        coinX = new float[]{100, 120, 140, 160, 180, 100, 120, 140, 160, 180, //start area
+                40, 60, 80, 100, 120, 140, 160, 180, 200, 220, //plant
+                171, 107, 74, 299, 555, 555, 522, 621, 621, 621, //platforms
+                320, 340, 360, 380, 400, 420, 440, //first enemy
+                360, 380, 400, 420, 440, 460, 480, 340, 500, //big platform #1
+                170, 190, 210, //big platform #2
+                410, 430, 450, 470, 490, //big platform #3
+                720, 718, 716, 714, 712, 710, 708, 706, 704, //drop diagonal
+                702, 702, 702, 702, 702, 702, 702, 702, 702, 702, 702, //drop straight
+                939, 939, 939, 1035, 1035, 1035, //dirt piles
+                683, 683, 683 //impossible coins
+        };
+        coinY = new float[]{700, 700, 700, 700, 700, 690, 690, 690, 690, 690, //start area
+                570, 570, 570, 570, 570, 570, 570, 570, 570, 570, //plant
+                517, 492, 460, 484, 388, 324, 292, 643, 420, 356, //platforms
+                685, 670, 655, 645, 655, 670, 685, //first enemy
+                580, 580, 580, 580, 580, 580, 580, 580, 580, //big platform #1
+                428, 428, 428, //big platform #2
+                452, 452, 452, 452, 452, //big platform #3
+                288, 300, 312, 324, 336, 348, 360, 372, 384, //drop diagonal
+                396, 408, 420, 432, 446, 458, 472, 484, 498, 510, 524, //drop straight
+                724, 712, 700, 724, 712, 700, //dirt piles
+                212, 200, 188 //impossible coins
+        };
+        coins = new Coin[coinX.length];
+        for (int i = 0; i < coins.length; i++){
+            coins[i] = new Coin(coinX[i], coinY[i]);
+        }
+
     }
 
 
@@ -136,6 +173,13 @@ public class StaticLevel
         }
         g.draw(ziel);
         welt.draw(0,0);
+
+        for(Coin c: coins){
+            if(!c.collected) {
+                g.draw(c.hitbox);
+                c.animation.draw(c.hitbox.getX(), c.hitbox.getY(), 10, 10);
+            }
+        }
     }
 
 
@@ -143,6 +187,24 @@ public class StaticLevel
 
     }
 
+    public boolean collectsCoin(Shape p){
+
+        for (Coin c:coins) {
+            if(!c.collected) {
+                if (c.hitbox.intersects(p)) {
+                    c.collected = true;
+                    return true;
+                }
+            }
+        }
+        return false ;
+    }
+
+    public void resetCoins(){
+        for(Coin c: coins){
+            c.collected = false;
+        }
+    }
 
     public boolean collidesWith(Shape s)
     {

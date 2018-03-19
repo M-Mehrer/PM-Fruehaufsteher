@@ -17,7 +17,9 @@ public class Game extends BasicGame
     public Music bgMusic;
     private Sound finishSound;
     private boolean finishSoundPlayed = false;
-    public boolean gameRunning = false;
+    private int score = 0;
+    private long startTime;
+    private int time = 0;
 
     public Thread highscoreViewThread;
 
@@ -33,7 +35,7 @@ public class Game extends BasicGame
         enemies = new Enemies( level);
         enemies.init(gc);
 
-        player = new Player( level,enemies );
+        player = new Player( level,enemies,this );
         player.init(gc);
 
         bgMusic = new Music("/media/sounds/background_music.ogg");
@@ -45,38 +47,40 @@ public class Game extends BasicGame
 
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        if(level.isInGoal(player.player)) {
-            gameState = State.FINISHED;
-        }
+                //drawDebugLines( g , 50 );
+        g.scale(3f,3f);
+        g.translate(-player.player.getX() + 250,-player.player.getY() + 150); //placing camera in relation to player
+        level.render(gc, g);
+        player.render(gc, g);
+        enemies.render(gc, g);
         switch(gameState){
              case MAIN_MENU:
-                 g.scale(3f,3f);
-                 g.translate(-player.player.getX() + 250,-player.player.getY() + 150); //placing camera in relation to player
                  g.setColor(Color.white);
                  g.drawString("Welcome to SuperMarco!"
                          + "\n\nMove with arrow keys."
                          + "\nPress R to reset."
                          + "\nPress enter to start.", -200, 650);
-                 if( gc.getInput().isKeyDown(Input.KEY_ENTER) )
+                 if( gc.getInput().isKeyDown(Input.KEY_ENTER) ) {
                      gameState = State.PLAYING;
+                     startTime = System.currentTimeMillis();
+                 }
                  break;
             case PLAYING:
-                //drawDebugLines( g , 50 );
-                g.scale(3f,3f);
-                g.translate(-player.player.getX() + 250,-player.player.getY() + 150); //placing camera in relation to player
-                level.render(gc, g);
-                player.render(gc, g);
-                enemies.render(gc, g);
+                time = Math.toIntExact((System.currentTimeMillis() - startTime) / 1000);
+                g.setColor(Color.white);
+                g.drawString("Score: " + score + "          " + "Time: " + time, player.player.getX() - 50,player.player.getY() - 150);
+                if(level.isInGoal(player.player)) {
+                    gameState = State.FINISHED;
+                }
                 break;
             case FINISHED:
-                g.scale(3f,3f);
-                g.translate(-player.player.getX() + 250,-player.player.getY() + 150); //placing camera in relation to player
-                g.setColor(Color.red);
-                g.drawString("LEVEL GESCHAFFT!" +
-                        "\nDANKE FÜRS SPIELEN.", player.player.getX(),player.player.getY() - 100);
+                g.setColor(Color.white);
+                g.drawString(" LEVEL COMPLETED!" +
+                        "\nTHANKS FOR PLAYING" +
+                        "\n\npress R to replay.", player.player.getX() - 20,player.player.getY() - 75);
 
                 if(!finishSoundPlayed) {
-                    saveHighscore(12);
+                    saveHighscore(getHighscore());
                     bgMusic.pause();
                     finishSound.play();
                     finishSoundPlayed = true;
@@ -91,7 +95,7 @@ public class Game extends BasicGame
 
                 if( gc.getInput().isKeyDown(Input.KEY_R) ) {
                     gameState = State.PLAYING;
-                    player.reset();
+                    player.reset(gc);
                     finishSoundPlayed = false;
                     bgMusic.resume();
                 }
@@ -159,6 +163,17 @@ public class Game extends BasicGame
             g.drawLine(i, 0, i, resolution);
             g.drawLine(0,i, resolution, i);
         }
+    }
+
+    public void increaseScore(int points){
+        score += points;
+    }
+    private int getHighscore(){
+        return score + (1000 - time);
+    }
+    public void resetScore(){
+        score = 0;
+        startTime = System.currentTimeMillis();
     }
 
 }

@@ -12,11 +12,13 @@ public class Player {
 
 
     public Shape player;
+    private Shape playerLife;
     private StaticLevel level;
     private Enemies enemies;
+    private Game game;
     private Animation[] sprite = new Animation[6];
 
-    Sound opponentSound, jumpSound, gameOverSound;
+    Sound opponentSound, jumpSound, gameOverSound, coinSound;
 
 
 
@@ -37,15 +39,17 @@ public class Player {
     private int playerDir = LOOKING_RIGHT;
     private boolean playerJump = false;
 
-    public Player( StaticLevel level, Enemies enemies )
+    public Player( StaticLevel level, Enemies enemies, Game game )
     {
         this.level = level;
         this.enemies = enemies;
+        this.game = game;
     }
 
     public void init(GameContainer gc) throws SlickException {
         //init player
         player  = new Rectangle(40,700,20,25);
+        playerLife = new Rectangle(45, 700, 10, 20);
         //looking right
         sprite[0] = new Animation(new Image[] {new Image("./media/Marco_Standing_Looking Right_01.png")},1);
         //walking right
@@ -69,6 +73,7 @@ public class Player {
         opponentSound = new Sound("/media/sounds/opponent.ogg");
         jumpSound = new Sound("/media/sounds/jump.ogg");
         gameOverSound = new Sound("/media/sounds/game_over1.ogg");
+        coinSound = new Sound("/media/sounds/coin.wav");
     }
 
 
@@ -76,6 +81,7 @@ public class Player {
 
         g.setColor( Color.transparent );
         g.draw(player);
+        g.draw(playerLife);
         sprite[playerDir].draw(x,y,20,25);
 
 
@@ -93,6 +99,7 @@ public class Player {
 
             playerJump = true;
             player.setY( player.getY()+0.5f );
+            playerLife.setY(player.getY());
             y = player.getY()+0.5f -cY;
             if( level.collidesWith(player) )
             {
@@ -100,17 +107,21 @@ public class Player {
                 vY = jumpStrength;
             }
             player.setY( player.getY()-0.5f );
+            playerLife.setY(player.getY());
             y = player.getY()-0.5f -cY;
+
         }
         // Y Movement-Collisions
         float vYtemp = vY/interations;
         for( int i = 0; i < interations ; i++ )
         {
             player.setY( player.getY() + vYtemp );
+            playerLife.setY(player.getY());
             y = player.getY() + vYtemp -cY;
             if( level.collidesWith(player) )
             {
                 player.setY( player.getY() - vYtemp );
+                playerLife.setY(player.getY());
                 y = player.getY() - vYtemp -cY;
                 vY = 0;
                 playerJump = false;
@@ -119,22 +130,29 @@ public class Player {
 
         //out of map
         if(player.getY()>900) {
-            reset();
+            reset(gc);
         }
 
         //Reset Player
         if( gc.getInput().isKeyDown(Input.KEY_R) ) {
-            reset();
-        }
-
-        //enemy hits player
-        if(enemies.hitsPlayer(player)) {
-            reset();
+            reset(gc);
         }
 
         //player hits enemy
-        if(enemies.isKilled(player)) {
+        if(enemies.isKilled(playerLife)) {
             opponentSound.play();
+            game.increaseScore(500);
+        }
+
+        //enemy hits player
+        if(enemies.hitsPlayer(playerLife)) {
+            reset(gc);
+        }
+
+        //collects coin
+        if(level.collectsCoin(player)){
+            coinSound.play();
+            game.increaseScore(100);
         }
 
         //checked if reached goal
@@ -182,24 +200,37 @@ public class Player {
         for( int i = 0; i < interations ; i++ )
         {
             player.setX( player.getX() + vXtemp );
+            playerLife.setX(player.getX() + 5);
             x = player.getX() + vXtemp - cX;
             if( level.collidesWith(player) )
             {
                 player.setX( player.getX() - vXtemp );
+                playerLife.setX(player.getX() + 5);
                 x = player.getX() - vXtemp - cX;
                 vX = 0;
             }
         }
     }
 
-    public void reset() {
+    public void reset(GameContainer gc) {
+        game.bgMusic.pause();
         gameOverSound.play();
 
         player.setY(700);
         player.setX(40);
+        playerLife.setX(player.getX() + 5);
+        playerLife.setY(player.getY());
         for(Snail s: enemies.enemieBoxes) {
             s.isAlive = true;
         }
+        level.resetCoins();
+        try {
+            gc.sleep(1200);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        game.bgMusic.resume();
+        game.resetScore();
 
     }
 }

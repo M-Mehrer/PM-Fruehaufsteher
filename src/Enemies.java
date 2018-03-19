@@ -19,13 +19,15 @@ public class Enemies {
     private float snail4Y = 721;
     private float snail5X = 1300;
     private float snail5Y = 721;
+    private float snail6X = 1500;
+    private float snail6Y = 593;
 
     private StaticLevel level;
 
     private final int LEFT = 0;
     private final int RIGHT = 1;
 
-    public Snail[] enemieBoxes = new Snail[5];
+    public Snail[] enemieBoxes = new Snail[6];
     public Animation[] enemieSprites = new Animation[2];
 
     private static float speed = 1;
@@ -57,7 +59,7 @@ public class Enemies {
         enemieBoxes[2] = new Snail(snail3X, snail3Y, 20, 15, 550, 355);
         enemieBoxes[3] = new Snail(snail4X, snail4Y, 20, 15, 1210, 1090);
         enemieBoxes[4] = new Snail(snail5X, snail5Y, 20, 15, 1355, 1230);
-
+        enemieBoxes[5] = new Snail(snail6X, snail6Y, 20, 15, 1515, 1488);
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
@@ -89,7 +91,7 @@ public class Enemies {
             //move enemy
             for (int i = 0; i < interations; i++) {
                 s.hitbox.setX(s.hitbox.getX() + vXtemp);
-                s.critbox.setX(s.hitbox.getX());
+                s.critbox.setX(s.hitbox.getX() + 1);
                 //ckeck if enemy leaves his space
                 if (s.hitbox.getX() > s.rightBorder || s.hitbox.getX() < s.leftBorder) {
                     //change animation

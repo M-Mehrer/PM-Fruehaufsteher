@@ -13,10 +13,11 @@ public class Snail {
     public float vX;
     public boolean isAlive;
     public Shape critbox;
+    public int value = 50;
 
     public Snail(float x, float y, float width, float height, float rightBorder, float leftBorder) throws SlickException {
         this.hitbox = new Rectangle(x,y,width, height);
-        this.critbox = new Rectangle(x,y - 2,width,1);
+        this.critbox = new Rectangle(x + 1,y - 2,width - 2,1);
         this.dir = 0;
         this.vX = 0;
         this.leftBorder = leftBorder;
