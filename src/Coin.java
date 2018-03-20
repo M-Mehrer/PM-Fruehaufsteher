@@ -15,20 +15,20 @@ public class Coin {
         hitbox = new Rectangle(x, y, 10, 10);
         collected = false;
         Image[] coinSprites = new Image[]{
-                new Image("/media/Coin_01.png"),
-                new Image("/media/Coin_02.png"),
-                new Image("/media/Coin_03.png"),
-                new Image("/media/Coin_04.png"),
-                new Image("/media/Coin_05.png"),
-                new Image("/media/Coin_06.png"),
-                new Image("/media/Coin_07.png"),
-                new Image("/media/Coin_08.png"),
-                new Image("/media/Coin_07.png"),
-                new Image("/media/Coin_06.png"),
-                new Image("/media/Coin_05.png"),
-                new Image("/media/Coin_04.png"),
-                new Image("/media/Coin_03.png"),
-                new Image("/media/Coin_02.png"),
+                new Image("/media/pictures/Coin_01.png"),
+                new Image("/media/pictures/Coin_02.png"),
+                new Image("/media/pictures/Coin_03.png"),
+                new Image("/media/pictures/Coin_04.png"),
+                new Image("/media/pictures/Coin_05.png"),
+                new Image("/media/pictures/Coin_06.png"),
+                new Image("/media/pictures/Coin_07.png"),
+                new Image("/media/pictures/Coin_08.png"),
+                new Image("/media/pictures/Coin_07.png"),
+                new Image("/media/pictures/Coin_06.png"),
+                new Image("/media/pictures/Coin_05.png"),
+                new Image("/media/pictures/Coin_04.png"),
+                new Image("/media/pictures/Coin_03.png"),
+                new Image("/media/pictures/Coin_02.png"),
         };
         animation = new Animation(coinSprites,100);
     }

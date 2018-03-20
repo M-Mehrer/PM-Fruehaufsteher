@@ -47,33 +47,40 @@ public class Player {
     }
 
     public void init(GameContainer gc) throws SlickException {
+        final String picturePath = "./media/pictures/";
+        final String soundPath = "./media/sounds/";
+
         //init player
         player  = new Rectangle(40,700,20,25);
         playerLife = new Rectangle(45, 700, 10, 20);
         //looking right
-        sprite[0] = new Animation(new Image[] {new Image("./media/Marco_Standing_Looking Right_01.png")},1);
+        sprite[0] = new Animation(new Image[] {new Image(picturePath + "Marco_Standing_Looking Right_01.png")},1);
         //walking right
-        sprite[1] = new Animation(new Image[] {new Image("./media/Marco_Standing_Running Right_01.png"),
-                new Image("./media/Marco_Standing_Running Right_02.png"),
-                new Image("./media/Marco_Standing_Running Right_03.png"),
-                new Image("./media/Marco_Standing_Running Right_04.png")},200);
+        sprite[1] = new Animation(new Image[] {
+                new Image(picturePath + "Marco_Standing_Running Right_01.png"),
+                new Image(picturePath + "Marco_Standing_Running Right_02.png"),
+                new Image(picturePath + "Marco_Standing_Running Right_03.png"),
+                new Image(picturePath + "Marco_Standing_Running Right_04.png")
+        },200);
         //walking left
-        sprite[2] = new Animation(new Image[] {new Image("./media/Marco_Standing_Running Left_01.png"),
-                new Image("./media/Marco_Standing_Running Left_02.png"),
-                new Image("./media/Marco_Standing_Running Left_03.png"),
-                new Image("./media/Marco_Standing_Running Left_04.png")},200);
+        sprite[2] = new Animation(new Image[] {
+                new Image(picturePath + "Marco_Standing_Running Left_01.png"),
+                new Image(picturePath + "Marco_Standing_Running Left_02.png"),
+                new Image(picturePath + "Marco_Standing_Running Left_03.png"),
+                new Image(picturePath + "Marco_Standing_Running Left_04.png")
+        },200);
         //jumping right
-        sprite[3] = new Animation(new Image[] {new Image("./media/Marco_Jumping Right_01.png")},1);
+        sprite[3] = new Animation(new Image[] {new Image(picturePath + "Marco_Jumping Right_01.png")},1);
         //jumping left
-        sprite[4] = new Animation(new Image[] {new Image("./media/Marco_Jumping Left_01.png")},1);
+        sprite[4] = new Animation(new Image[] {new Image(picturePath + "Marco_Jumping Left_01.png")},1);
         //looking left
-        sprite[5] = new Animation(new Image[] {new Image("./media/Marco_Standing_Looking Left_01.png")},1);
+        sprite[5] = new Animation(new Image[] {new Image(picturePath + "Marco_Standing_Looking Left_01.png")},1);
 
 
-        opponentSound = new Sound("/media/sounds/opponent.ogg");
-        jumpSound = new Sound("/media/sounds/jump.ogg");
-        gameOverSound = new Sound("/media/sounds/game_over1.ogg");
-        coinSound = new Sound("/media/sounds/coin.wav");
+        opponentSound = new Sound(soundPath + "opponent.ogg");
+        jumpSound = new Sound(soundPath + "jump.ogg");
+        gameOverSound = new Sound(soundPath + "game_over1.ogg");
+        coinSound = new Sound(soundPath + "coin.wav");
     }
 
 

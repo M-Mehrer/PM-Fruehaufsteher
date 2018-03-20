@@ -40,16 +40,16 @@ public class Enemies {
     public void init(GameContainer gc) throws SlickException {
         // enemie Animations
         Image[] snailLeft = new Image[4];
-        snailLeft[0] = new Image("./media/Snail_Left_1.png");
-        snailLeft[1] = new Image("./media/Snail_Left_2.png");
-        snailLeft[2] = new Image("./media/Snail_Left_3.png");
-        snailLeft[3] = new Image("./media/Snail_Left_2.png");
+        snailLeft[0] = new Image("./media/pictures/Snail_Left_1.png");
+        snailLeft[1] = new Image("./media/pictures/Snail_Left_2.png");
+        snailLeft[2] = new Image("./media/pictures/Snail_Left_3.png");
+        snailLeft[3] = new Image("./media/pictures/Snail_Left_2.png");
 
         Image[] snailRight = new Image[4];
-        snailRight[0] = new Image("./media/Snail_Right_1.png");
-        snailRight[1] = new Image("./media/Snail_Right_2.png");
-        snailRight[2] = new Image("./media/Snail_Right_3.png");
-        snailRight[3] = new Image("./media/Snail_Right_2.png");
+        snailRight[0] = new Image("./media/pictures/Snail_Right_1.png");
+        snailRight[1] = new Image("./media/pictures/Snail_Right_2.png");
+        snailRight[2] = new Image("./media/pictures/Snail_Right_3.png");
+        snailRight[3] = new Image("./media/pictures/Snail_Right_2.png");
 
         enemieSprites[0] = new Animation(snailLeft, 300);
         enemieSprites[1] = new Animation(snailRight, 300);

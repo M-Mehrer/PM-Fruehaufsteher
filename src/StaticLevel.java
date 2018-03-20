@@ -131,7 +131,7 @@ public class StaticLevel
         lev[24] = new Polygon(delta);
 
         ziel = new Rectangle(1650,568,16,150);
-        welt = new Image("./media/Level_One_V.1.2.png");
+        welt = new Image("./media/pictures/Level_One_V.1.2.png");
 
         coinX = new float[]{100, 120, 140, 160, 180, 100, 120, 140, 160, 180, //start area
                 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, //plant

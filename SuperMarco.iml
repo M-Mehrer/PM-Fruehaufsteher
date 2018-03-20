@@ -3,6 +3,7 @@
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/media" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
@@ -10,8 +11,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/lib/lwjgl-2.9.3/lwjgl-2.9.3/jar/lwjgl.jar!/" />
-          <root url="jar://$USER_HOME$/slick/lib/lwjgl.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/slick/jinput.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -20,8 +20,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/lib/lwjgl-2.9.3/lwjgl-2.9.3/jar/lwjgl_util.jar!/" />
-          <root url="jar://$USER_HOME$/slick/lib/lwjgl_util.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/slick/lwjgl.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -30,8 +29,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/lib/slick/lib/jinput.jar!/" />
-          <root url="jar://$USER_HOME$/slick/lib/jinput.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/slick/lwjgl_util.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -40,8 +38,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/lib/slick/lib/lwjgl.jar!/" />
-          <root url="jar://$USER_HOME$/slick/lib/lwjgl.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/slick/slick.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -50,39 +47,18 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/lib/slick/lib/lwjgl_util.jar!/" />
-          <root url="jar://$USER_HOME$/slick/lib/lwjgl_util.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/slick/ibxm.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/lib/slick/lib/slick.jar!/" />
-          <root url="jar://$USER_HOME$/slick/lib/slick.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/lib/slick/lib/ibxm.jar!/" />
-          <root url="jar://$USER_HOME$/slick/lib/ibxm.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="lwjgl">
+      <library name="Native Libs">
         <CLASSES />
         <JAVADOC />
         <NATIVE>
-          <root url="file://$USER_HOME$/slick" />
+          <root url="file://$MODULE_DIR$/libs" />
         </NATIVE>
         <SOURCES />
       </library>
@@ -90,7 +66,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/slick/lib/jorbis-0.0.15.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/slick/jorbis-0.0.15.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -99,7 +75,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/slick/lib/jogg-0.0.7.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/slick/jogg-0.0.7.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -108,34 +84,10 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/lib/slick/lib/jogg-0.0.7.jar!/" />
-          <root url="jar://$USER_HOME$/Desktop/lib/slick/lib/jorbis-0.0.15.jar!/" />
-          <root url="file://$USER_HOME$/Desktop" />
+          <root url="jar://$MODULE_DIR$/libs/natives-windows.jar!/" />
         </CLASSES>
-        <JAVADOC>
-          <root url="file://$USER_HOME$/Desktop/lib/slick/javadoc" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="file://$USER_HOME$/Desktop/HS Mannheim/1. Semester/g2-6/g2-6/GDI 1IB/src" />
-          <root url="file://$USER_HOME$/Desktop/HS Mannheim/2. Semester/OOT/FourTheWin-dev (1)/FourTheWin-dev/src" />
-          <root url="file://$USER_HOME$/Desktop/HS Mannheim/3. Semester/PP/pp01.01-Inheritance_solution/src" />
-          <root url="file://$USER_HOME$/Desktop/HS Mannheim/3. Semester/PP/pp01.02-Runnable_solution/src" />
-          <root url="file://$USER_HOME$/Desktop/HS Mannheim/3. Semester/PP/pp01.03-EndThread_solution/src" />
-          <root url="file://$USER_HOME$/Desktop/HS Mannheim/3. Semester/PP/pp01.04-TaskObserver_solution/src" />
-          <root url="file://$USER_HOME$/Desktop/HS Mannheim/3. Semester/PP/pp02.00-PresentationCode/src" />
-          <root url="file://$USER_HOME$/Desktop/HS Mannheim/3. Semester/PP/pp02.01-MemoryBarrier/src" />
-          <root url="file://$USER_HOME$/Desktop/HS Mannheim/3. Semester/PP/pp02.02-ThreadLocal/src" />
-          <root url="file://$USER_HOME$/Desktop/HS Mannheim/3. Semester/PP/pp02.03-Lock/src" />
-          <root url="file://$USER_HOME$/Desktop/HS Mannheim/3. Semester/PP/pp03.01-SynchPhilosopher_solution/src" />
-          <root url="file://$USER_HOME$/Desktop/HS Mannheim/3. Semester/PP/pp03.02-BoundedQueueWaitNotify_solution/src" />
-          <root url="file://$USER_HOME$/Desktop/HS Mannheim/3. Semester/PP/pp03.03-BoundedQueueAwaitSignal_solution/src" />
-          <root url="file://$USER_HOME$/Desktop/HS Mannheim/3. Semester/PP/pp04.01-RunnableReturn_solution/src" />
-          <root url="file://$USER_HOME$/Desktop/HS Mannheim/3. Semester/PP/pp04.02-ThreadPoolSize_solution/src" />
-          <root url="file://$USER_HOME$/Desktop/HS Mannheim/3. Semester/PP/pp04.03-Future_solution/src" />
-          <root url="file://$USER_HOME$/Desktop/HS Mannheim/3. Semester/PP/ppa1.01-CondPhilosophers_solution/src" />
-          <root url="file://$USER_HOME$/Desktop/lib/slick/src" />
-          <root url="file://$USER_HOME$/Desktop/lib/slick/tools" />
-        </SOURCES>
+        <JAVADOC />
+        <SOURCES />
       </library>
     </orderEntry>
   </component>
