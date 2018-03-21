@@ -146,9 +146,11 @@ public class Player {
         }
 
         //player hits enemy
-        if(enemies.isKilled(playerLife)) {
-            opponentSound.play();
-            game.increaseScore(500);
+        if(playerJump) {
+           if(enemies.isKilled(playerLife)) {
+              opponentSound.play();
+              game.increaseScore(500);
+           }
         }
 
         //enemy hits player
