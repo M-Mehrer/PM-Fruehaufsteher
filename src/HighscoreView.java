@@ -134,6 +134,7 @@ public class HighscoreView extends Application {
     @Override
     public void stop() {
         instance = null;
+        stopped = true;
     }
 }
 
