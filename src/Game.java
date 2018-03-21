@@ -19,7 +19,6 @@ public class Game extends BasicGame
     private boolean finishSoundPlayed = false;
     private int score = 0, time = 0;
     private long startTime;
-    private int time = 0;
     private HighscoreView instance;
 
     public Thread highscoreViewThread;
