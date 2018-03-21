@@ -27,12 +27,12 @@ public class StaticLevel
                 608f,670f,
                 608f,655f,
                 640f,655f,
-                640f,445f,
-                608f,445f,
+                640f,436f,
+                608f,436f,
                 608f,432f,
                 640f,432f,
-                640f,378f,
-                608f,378f,
+                640f,372f,
+                608f,372f,
                 608f,368f,
                 640f,368f,
                 640f,320f,
@@ -110,22 +110,22 @@ public class StaticLevel
         lev[5] = new Rectangle(448,720,16,16);
         lev[6] = new Rectangle(512,736,32,32);
         lev[7] = new Rectangle(576,704,32,32);
-        lev[8] = new Rectangle(287,592,290,16);
+        lev[8] = new Rectangle(287,592,290,6);
         lev[9] = new Polygon(bravo);
 
-        lev[10] = new Rectangle(160,529,32,16);
-        lev[11] = new Rectangle(96,504,32,16);
-        lev[12] = new Rectangle(63,472,32,16);
-        lev[13] = new Rectangle(288,496,32,16);
-        lev[14] = new Rectangle(544,400,32,16);
-        lev[15] = new Rectangle(544,336,32,16);
-        lev[16] = new Rectangle(511,304,32,16);
+        lev[10] = new Rectangle(160,529,32,4);
+        lev[11] = new Rectangle(96,504,32,4);
+        lev[12] = new Rectangle(63,472,32,4);
+        lev[13] = new Rectangle(288,496,32,4);
+        lev[14] = new Rectangle(544,400,32,4);
+        lev[15] = new Rectangle(544,336,32,4);
+        lev[16] = new Rectangle(511,304,32,4);
 
-        lev[17] = new Rectangle(127,440,130,16);
-        lev[18] = new Rectangle(352,464,225,16);
+        lev[17] = new Rectangle(127,440,130,6);
+        lev[18] = new Rectangle(352,464,225,6);
         lev[19] = new Rectangle(928,736,32,64);
         lev[20] = new Rectangle(1024,736,32,64);
-        lev[21] = new Rectangle(1600,736,192,16);
+        lev[21] = new Rectangle(1600,736,192,64);
         lev[22] = new Rectangle(1792,0,1,1000);
         lev[23] = new Polygon(charlie);
         lev[24] = new Polygon(delta);
