@@ -1,11 +1,8 @@
-import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.Vector2f;
 
 public class StaticLevel
 {
@@ -168,11 +165,11 @@ public class StaticLevel
     public void render(GameContainer gc, Graphics g) throws SlickException {
         g.setColor(Color.transparent);
 
+        welt.draw(0,0);
         for(Shape i:lev) {
             g.draw(i);
         }
         g.draw(ziel);
-        welt.draw(0,0);
 
         for(Coin c: coins){
             if(!c.collected) {

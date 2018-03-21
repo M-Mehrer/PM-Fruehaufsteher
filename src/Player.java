@@ -39,6 +39,12 @@ public class Player {
     private int playerDir = LOOKING_RIGHT;
     private boolean playerJump = false;
 
+    private float scoredLabelXPos, scoredLabelYPos;
+    private int scoredPoints;
+    private long scoreTime;
+    private final long showScoreTimeDelay = 1000;
+    private boolean showScoredLabel = false;
+
     public Player( StaticLevel level, Enemies enemies, Game game )
     {
         this.level = level;
@@ -85,6 +91,18 @@ public class Player {
 
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
+
+        // Show scored points
+        if(showScoredLabel && (System.currentTimeMillis() - scoreTime) < showScoreTimeDelay) {
+            // scoredLabelXPos, scoredLabelYPos
+            Color oldColor = g.getColor();
+            g.setColor(Color.yellow);
+            g.drawString(scoredPoints + "", scoredLabelXPos, scoredLabelYPos - 30);
+            g.setColor(oldColor);
+        }
+        else {
+            showScoredLabel = false;
+        }
 
         g.setColor( Color.transparent );
         g.draw(player);
@@ -146,9 +164,12 @@ public class Player {
         }
 
         //player hits enemy
-        if(enemies.isKilled(playerLife)) {
-            opponentSound.play();
-            game.increaseScore(500);
+        if(playerJump) {
+            if(enemies.isKilled(playerLife)) {
+                opponentSound.play();
+                game.increaseScore(500);
+                showScoredPoints(500, x, y);
+            }
         }
 
         //enemy hits player
@@ -160,6 +181,7 @@ public class Player {
         if(level.collectsCoin(player)){
             coinSound.play();
             game.increaseScore(100);
+            showScoredPoints(100, x, y);
         }
 
         //checked if reached goal
@@ -219,7 +241,22 @@ public class Player {
         }
     }
 
+    public void showScoredPoints(int points, float xPos, float yPos) {
+        if(showScoredLabel) {
+            scoredPoints += points;
+        }
+        else {
+            scoredPoints = points;
+        }
+
+        scoreTime = System.currentTimeMillis();
+        scoredLabelXPos = xPos;
+        scoredLabelYPos = yPos;
+        showScoredLabel = true;
+    }
+
     public void reset(GameContainer gc) {
+        showScoredLabel = false;
         game.bgMusic.pause();
         gameOverSound.play();
 
