@@ -20,8 +20,8 @@ public class Game extends BasicGame
     private int score = 0;
     private long startTime;
     private int time = 0;
+    private HighscoreView instance;
 
-    public Thread highscoreViewThread;
 
     public Game() throws SlickException {
         super("SuperMarco");
@@ -42,6 +42,8 @@ public class Game extends BasicGame
         bgMusic.loop();
 
         finishSound = new Sound("/media/sounds/finish2.ogg");
+
+        updateHighscoreView();
     }
 
 
@@ -84,13 +86,7 @@ public class Game extends BasicGame
                     bgMusic.pause();
                     finishSound.play();
                     finishSoundPlayed = true;
-
-                    //if(highscoreViewThread == null || !highscoreViewThread.isAlive()) {
-                        highscoreViewThread = new Thread(() -> {
-                            javafx.application.Application.launch(HighscoreView.class);
-                        });
-                        highscoreViewThread.start();
-                    //}
+                    updateHighscoreView();
                 }
 
                 if( gc.getInput().isKeyDown(Input.KEY_R) ) {
@@ -134,7 +130,6 @@ public class Game extends BasicGame
 
     }
 
-
     public void update(GameContainer gc, int delta) throws SlickException {
         switch(gameState){
             case MAIN_MENU:
@@ -176,4 +171,14 @@ public class Game extends BasicGame
         startTime = System.currentTimeMillis();
     }
 
+    public void updateHighscoreView() {
+        try {
+            instance = HighscoreView.getInstance();
+            if (instance != null) {
+                instance.loadDefaultFile();
+            }
+        } catch(Exception ex) {
+            //Ignore exceptions like a pro
+        }
+    }
 }

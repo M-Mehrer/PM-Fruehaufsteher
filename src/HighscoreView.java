@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,8 +21,39 @@ import java.util.Locale;
 public class HighscoreView extends Application {
 
     private TableView scoresView = new TableView();
-
     private TableColumn nameColumn, scoreColumn;
+    private static HighscoreView instance;
+    private static boolean stopped = false;
+
+    public static synchronized HighscoreView getInstance() {
+        if(instance == null) {
+            if(stopped) {
+                return null;
+            }
+
+            new Thread(() -> {
+                try {
+                    Application.launch(HighscoreView.class);
+                } catch(Exception ex) {
+                    //Ignore exceptions like a pro
+                }
+            }).start();
+
+            while(instance == null) {
+                try {
+                    Thread.sleep(200);
+                } catch(InterruptedException ex) {
+
+                }
+            }
+        }
+
+        return instance;
+    }
+
+    public HighscoreView() {
+        instance = this;
+    }
 
     public static void main(String[] args) {
         launch(args);
@@ -34,6 +66,7 @@ public class HighscoreView extends Application {
         primaryStage.setTitle("Highscore");
         primaryStage.setWidth(400);
         primaryStage.setHeight(500);
+        primaryStage.setIconified(true);
 
         nameColumn = new TableColumn("Name");
         scoreColumn = new TableColumn("Score");
@@ -65,11 +98,9 @@ public class HighscoreView extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        loadDefaultFile();
     }
 
-    private void loadDefaultFile() {
+    public void loadDefaultFile() {
         File defaultFile = new File("scores.xml");
         if(defaultFile.exists()) {
             loadFile(defaultFile);
@@ -98,6 +129,11 @@ public class HighscoreView extends Application {
                 alert.showAndWait();
             }
         }
+    }
+
+    @Override
+    public void stop() {
+        instance = null;
     }
 }
 
