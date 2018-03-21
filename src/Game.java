@@ -17,11 +17,12 @@ public class Game extends BasicGame
     public Music bgMusic;
     private Sound finishSound;
     private boolean finishSoundPlayed = false;
-    private int score = 0;
+    private int score = 0, time = 0;
     private long startTime;
     private int time = 0;
     private HighscoreView instance;
 
+    public Thread highscoreViewThread;
 
     public Game() throws SlickException {
         super("SuperMarco");
@@ -49,7 +50,7 @@ public class Game extends BasicGame
 
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
-                //drawDebugLines( g , 50 );
+        //drawDebugLines( g , 50 );
         g.scale(3f,3f);
         g.translate(-player.player.getX() + 250,-player.player.getY() + 150); //placing camera in relation to player
         level.render(gc, g);
